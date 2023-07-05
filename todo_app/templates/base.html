@@ -24,16 +24,8 @@
             <div class="container">
                 <a class="navbar-brand" href="{% url 'home' %}">TO-DO Lists</a>
                 {% if request.user.is_authenticated %}
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item d-lg-none">
-                            <form action="{% url 'logout_user' %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-dark">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav d-none d-lg-flex ms-auto">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-auto justify-content-end">
                         <li class="nav-item">
                             <form action="{% url 'logout_user' %}" method="post">
                                 {% csrf_token %}
