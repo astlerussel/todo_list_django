@@ -23,18 +23,18 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'home' %}">TO-DO Lists</a>
-                {% if request.user.is_authenticated %}
+               
                 <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav justify-content-end">
-                        <li class="nav-item">
-                            <form action="{% url 'logout_user' %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-dark">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-                {% endif %}
+                <ul class="navbar-nav ms-auto justify-content-end">
+                    <li class="nav-item">
+                        <form action="{% url 'logout_user' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-dark">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+               
             </div>
         </nav>
     </div>
