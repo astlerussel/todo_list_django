@@ -5,16 +5,21 @@
   <div class="card card-small">
     <div class="card-header">
       <h3 class="mb-0 text-center">To-Do List: {{ todo_list.title }}</h3>
-      
+      <div style ="text-align: right;">
+        <button class="btn btn-warning" onclick="location.href='{% url 'home' %}'">
+          <i class="material-icons">arrow_back</i><b>Back</b>
+      </button>
+      </div>
     </div>
     <form method="GET" class="mb-3">
         <label for="sort-by"><b>Sort By:</b></label>
         <select name="sort_by" id="sort-by" onchange="this.form.submit()">
-          <option value="priorityh" {% if sort_by == 'priorityh' %}selected{% endif %}>Priority: H-L</option>
-          <option value="priorityl" {% if sort_by == 'priorityl' %}selected{% endif %}>Priority: L-H</option>
+          <option value="priorityh" {% if sort_by == 'priorityh' %}selected{% endif %}>Priority: High-Low</option>
+          <option value="priorityl" {% if sort_by == 'priorityl' %}selected{% endif %}>Priority: Low-High</option>
           <option value="due_date" {% if sort_by == 'due_date' %}selected{% endif %}>Due Date</option>
         </select>
       </form>
+      
     <ul class="list-group list-group-flush">
       {% for todo in object_list %}
       <li class="list-group-item">
@@ -78,11 +83,15 @@
       {% endfor %}
     </ul>
     <div class="card-footer">
-      <div class="d-flex justify-content-left">
+      <div style ="text-align: left; margin: 0px;">
         <button class="btn btn-success" onclick="location.href='{% url 'item-add' todo_list.id %}'">
             <i class="material-icons">add_task</i><b>Add New Task</b>
         </button>
+        
+        
       </div>
+      
+      
     </div>
   </div>
 </div>

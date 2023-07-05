@@ -28,6 +28,9 @@
               <button class="btn btn-outline-success btn-sm" onclick="location.href='{% url 'list' todolist.id %}'">
                 <i class="material-icons">add_task</i><b>Add Tasks</b>
               </button>
+              <button class="btn btn-outline-danger btn-sm" onclick="location.href='{% url 'list-delete' todolist.id %}'">
+                <i class="material-icons">delete</i><b>Delete</b>
+              </button>
             </div>
           </td>
           
