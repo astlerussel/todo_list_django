@@ -26,9 +26,11 @@
                 {% if request.user.is_authenticated %}
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout_user' %}">Logout</a>
-                        </li>
+                        <div class="d-lg-block">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout_user' %}">Logout</a>
+                            </li>
+                        </div>
                     </ul>
                 </div>
                 {% endif %}
