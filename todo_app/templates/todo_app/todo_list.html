@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card card-small">
+    <div class="card-header">
+      <h3 class="mb-0 text-center">To-Do List: {{ todo_list.title }}</h3>
+      
+    </div>
+    <form method="GET" class="mb-3">
+        <label for="sort-by"><b>Sort By:</b></label>
+        <select name="sort_by" id="sort-by" onchange="this.form.submit()">
+          <option value="priorityh" {% if sort_by == 'priorityh' %}selected{% endif %}>Priority: H-L</option>
+          <option value="priorityl" {% if sort_by == 'priorityl' %}selected{% endif %}>Priority: L-H</option>
+          <option value="due_date" {% if sort_by == 'due_date' %}selected{% endif %}>Due Date</option>
+        </select>
+      </form>
+    <ul class="list-group list-group-flush">
+      {% for todo in object_list %}
+      <li class="list-group-item">
+        <div >
+          <div class="title-wrapper {% if todo.is_completed %}completed-task{% endif %}">
+            <h5>{{ todo.title }}</h5> 
+          </div>
+          
+        </div>
+        <div class="due-date">
+            <span class="material-icons">calendar_today</span>
+            (Due {{ todo.due_date|date:"l, F j" }})
+          </div>
+        <div class="status-badge">
+            {% if todo.is_completed %}
+          <span class="badge bg-success">Completed <i class="material-icons">done</i></span>
+          {% elif not todo.is_completed and todo.in_progress%}
+          <span class="badge bg-danger">In Progress <i class="material-icons">autorenew</i></span>
+        {% else %}
+          <span class="badge bg-warning text-dark">Pending <i class="material-icons">pending</i></span>
+        {% endif %}
+        {% if todo.priority == '0' %}
+        <span class="badge bg-danger text-dark"><i class="material-icons">priority_high</i><b>High</b></span>
+        {% elif todo.priority == '1' %}
+        <span class="badge bg-warning text-dark"><i class="material-icons">priority_high</i><b>Medium</b></span>
+        {% else %}
+        <span class="badge bg-success text-dark"><i class="material-icons">priority_high</i><b>Low</b></span>
+        {% endif %}
+        </div>
+        
+        <div class="buttons text-center">
+          <button class="btn btn-outline-success btn-sm" onclick="location.href='{% url 'item-update' todo_list.id todo.id %}'">
+            <i class="material-icons">edit</i><b>Edit</b>
+          </button>
+          <button class="btn btn-outline-danger btn-sm" onclick="location.href='{% url 'item-delete' todo_list.id todo.id %}'">
+            <i class="material-icons">delete</i><b>Delete</b>
+          </button>
+          {% if not todo.is_completed %}
+            <div class="done-button">
+              <form action="{% url 'item-done' todo_list.id todo.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success btn-sm"><i class="material-icons">task_alt</i><b>Done</b></button>
+              </form>
+            </div>
+          {% endif %}
+          {% if not todo.is_completed and not todo.in_progress%}
+            <div class="done-button">
+              <form action="{% url 'item-start' todo_list.id todo.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success btn-sm"><i class="material-icons">start</i><b>Start</b></button>
+              </form>
+            </div>
+          {% endif %}
+        </div>
+      
+      </li>
+      {% empty %}
+      <li class="list-group-item">
+        <p class="mb-0 text-center">There are no to-do items in this list.</p>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="card-footer">
+      <div class="d-flex justify-content-left">
+        <button class="btn btn-success" onclick="location.href='{% url 'item-add' todo_list.id %}'">
+            <i class="material-icons">add_task</i><b>Add New Task</b>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+    .completed-task {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.title-wrapper {
+  display: flex;
+  align-items: left;
+}
+.status-badge {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.title-wrapper h5 {
+  margin-right: 10px;
+}
+
+
+.due-date {
+  display: flex;
+  align-items: right;
+  text-align: right;
+  color: #888888;
+}
+
+.due-date .material-icons {
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+.due-date .material-icons.calendar {
+  font-size: 20px;
+  color: #555555;
+}
+
+.card-small {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card-small .card-header {
+  text-align: center;
+}
+
+.card-small .list-group-item {
+  text-align: right;
+}
+
+.card-small .buttons {
+  display: flex;
+  justify-content: left;
+  gap: 10px;
+}
+
+
+.card-small .mt-2 {
+  text-align: center;
+}
+
+
+</style>
+{% endblock %}

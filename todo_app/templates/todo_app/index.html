@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  {% if request.user.is_authenticated %}
+  <h2 class="text-success mt-4">Welcome, <i class="material-icons">
+    account_circle
+  </i> {{ request.user.first_name }} {{ request.user.last_name }}</h2>
+  {% endif %}
+
+  {% if object_list %}
+  <h3 class="mt-4">My To-Do Lists</h3>
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for todolist in object_list %}
+      <tr>
+        
+        <td class="d-flex justify-content-between align-items-center">
+            <div class="mr-auto">
+              <b>{{ todolist.title }}</b>
+            </div>
+            <div>
+              <button class="btn btn-outline-success btn-sm" onclick="location.href='{% url 'list' todolist.id %}'">
+                <i class="material-icons">add_task</i><b>Add Tasks</b>
+              </button>
+            </div>
+          </td>
+          
+      </tr>
+      {% empty %}
+      <tr>
+        <td>
+          <h4 class="mt-4">You have no lists!</h4>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+  <div class="mt-4">
+    <button class="btn btn-success" onclick="location.href='{% url 'list-add' %}'">Add a new list</button>
+  </div>
+</div>
+{% endblock %}
