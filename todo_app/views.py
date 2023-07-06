@@ -156,12 +156,7 @@ class ItemCreate(CreateView):
 
 class ItemUpdate(UpdateView):
     model = ToDoItem
-    fields = [
-        "todo_list",
-        "title",
-        "description",
-        "due_date",
-    ]
+    form_class = ToDoItemForm
 
     def get_context_data(self):
         context = super().get_context_data()
