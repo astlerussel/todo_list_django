@@ -90,7 +90,7 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'todolist',
+        'NAME': 'astle$todolist',
         'USER': 'astle',
         'PASSWORD': 'russel123',
         'HOST':'astle.mysql.pythonanywhere-services.com',
