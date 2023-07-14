@@ -84,9 +84,17 @@ WSGI_APPLICATION = "todo_project.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'todolist',
+        'USER': 'astle',
+        'PASSWORD': 'russel123',
+        'HOST':'astle.mysql.pythonanywhere-services.com',
+        'PORT':'3306',
     }
 }
 
